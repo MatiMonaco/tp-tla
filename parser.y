@@ -27,8 +27,8 @@ void yyerror(const char *s);
 %%
 statement_list: statement
         |       statement_list statement
-        |       statement '.'
-        |       statement_list statement '.'
+        |       statement '\n'
+        |       statement_list statement '\n'
         ;
 statement: NAME '=' expression  SEMICOLON { $1->value = $3; }
         |  expression   SEMICOLON { printf("= %g\n", $1); }

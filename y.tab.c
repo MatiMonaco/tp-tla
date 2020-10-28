@@ -489,10 +489,10 @@ union yyalloc
 static const yytype_int8 yytranslate[] =
 {
        0,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+      11,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      13,    14,     8,     7,     2,     6,    11,     9,     2,     2,
+      13,    14,     8,     7,     2,     6,     2,     9,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,    12,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -532,7 +532,7 @@ static const yytype_int8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NAME", "NUMBER", "SEMICOLON", "'-'",
-  "'+'", "'*'", "'/'", "UMINUS", "'.'", "'='", "'('", "')'", "$accept",
+  "'+'", "'*'", "'/'", "UMINUS", "'\\n'", "'='", "'('", "')'", "$accept",
   "statement_list", "statement", "expression", YY_NULLPTR
 };
 #endif
@@ -543,7 +543,7 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,    45,    43,    42,    47,
-     261,    46,    61,    40,    41
+     261,    10,    61,    40,    41
 };
 # endif
 
