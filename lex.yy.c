@@ -762,9 +762,11 @@ return 0; /* EOF when running in command line */
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
-#line 23 "lexer.l"
+YY_RULE_SETUP
+#line 22 "lexer.l"
+return NEW_LINE;
+	YY_BREAK
 case 7:
-/* rule 7 can match eol */
 YY_RULE_SETUP
 #line 23 "lexer.l"
 return yytext[0];
@@ -774,7 +776,7 @@ YY_RULE_SETUP
 #line 24 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 778 "lex.yy.c"
+#line 780 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

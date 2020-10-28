@@ -16,6 +16,7 @@ void yyerror(const char *s);
 %token <symp> NAME
 %token <dval> NUMBER
 %token SEMICOLON
+%token NEW_LINE
 
 //Set precedences
 %left '-' '+'
@@ -27,8 +28,8 @@ void yyerror(const char *s);
 %%
 statement_list: statement
         |       statement_list statement
-        |       statement '\n'
-        |       statement_list statement '\n'
+        |       statement NEW_LINE
+        |       statement_list statement NEW_LINE
         ;
 statement: NAME '=' expression  SEMICOLON { $1->value = $3; }
         |  expression   SEMICOLON { printf("= %g\n", $1); }

@@ -52,14 +52,16 @@ extern int yydebug;
     NAME = 258,
     NUMBER = 259,
     SEMICOLON = 260,
-    UMINUS = 261
+    NEW_LINE = 261,
+    UMINUS = 262
   };
 #endif
 /* Tokens.  */
 #define NAME 258
 #define NUMBER 259
 #define SEMICOLON 260
-#define UMINUS 261
+#define NEW_LINE 261
+#define UMINUS 262
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -70,7 +72,7 @@ union YYSTYPE
     double dval;
     struct symtab* symp;
 
-#line 74 "y.tab.h"
+#line 76 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

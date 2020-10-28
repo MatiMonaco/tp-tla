@@ -19,7 +19,7 @@
 [ \t] ; /* ignore whitespace */
 ; return SEMICOLON;
 "$" return 0; /* EOF when running in command line */
-\n  |
+\n  return NEW_LINE;
 .   return yytext[0];
 %%
 
