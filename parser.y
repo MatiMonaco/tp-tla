@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 int yylex();
 void yyerror(const char *s);
@@ -10,6 +11,7 @@ void yyerror(const char *s);
 
 %union{
     double dval;
+    char* string;
     struct symtab* symp;
 }
 
@@ -17,6 +19,8 @@ void yyerror(const char *s);
 %token <dval> NUMBER
 %token SEMICOLON
 %token NEW_LINE
+%token <string>QSTRING
+%token PRINT
 
 //Set precedences
 %left '-' '+'
@@ -33,6 +37,8 @@ statement_list: statement
         ;
 statement: NAME '=' expression  SEMICOLON { $1->value = $3; }
         |  expression   SEMICOLON { printf("= %g\n", $1); }
+        | print_func SEMICOLON
+
         ;
 expression: expression '+' expression { $$ = $1 + $3; }
         |   expression '-' expression { $$ = $1 - $3; }
@@ -47,7 +53,45 @@ expression: expression '+' expression { $$ = $1 + $3; }
         |   '(' expression ')'      { $$ = $2; }
         |   NUMBER
         |   NAME { $$ = $1->value; }
+        | NAME '(' expression ')' {
+            if($1->funcptr){
+                $$ = ($1->funcptr)($3);
+            }else{
+                 printf("%s is not a function\n",$1->name);
+                $$ = 0;
+            }
+
+               
+
+        }
         ;
+print_func:  PRINT '(' expression ')' { 
+                                        printf("%g",$3);
+                                        }
+        |    PRINT '(' QSTRING ')' {
+                                    char *s = $3;
+                                    for(int i = 0;s[i] != '\0';i++){
+                                        char c = s[i];
+                                        if(c == '\\'){
+                                            char next = s[i+1];
+                                            switch(next){
+                                                case 'n':
+                                                    putchar('\n');
+                                                    i++;
+                                                    break;
+                                                case 't':
+                                                    putchar('\t');
+                                                    i++;
+                                                default:
+                                                    putchar(c);
+                                                }
+                                        }else{
+                                            putchar(c);
+                                        }
+                                    }
+           }
+        ;
+
 %%
 
 struct symtab * symlook(char* s){
@@ -61,7 +105,7 @@ struct symtab * symlook(char* s){
         /* is it free */
         if(!sp->name) {
             sp->name = strdup(s);
-            
+          
             return sp;
         }
         /* otherwise continue to next */
@@ -71,9 +115,18 @@ struct symtab * symlook(char* s){
     
 }
 
+
+
 extern FILE* yyin;
+
+void addFunc(char *name,double(*func)()){
+    struct symtab *sp = symlook(name);
+    sp->funcptr = func;
+}
 int main(int argc, char* argv[]){
-  
+    
+    extern double sqrt(),exp(),log();
+   
     if(argc == 2){
         FILE *file;
         file = fopen(argv[1],"r");
@@ -82,7 +135,10 @@ int main(int argc, char* argv[]){
             exit(1);
         }
         yyin = file;
-
+      
+        addFunc("sqrt",sqrt);
+        addFunc("exp",exp);
+        addFunc("log",log);
         while(!feof(yyin)){
            yyparse();
         }
@@ -97,6 +153,6 @@ int main(int argc, char* argv[]){
 
 void yyerror(const char *s)
 {
-fprintf (stderr, "%s\n", s);
+    fprintf (stderr, "%s\n", s);
 }
 

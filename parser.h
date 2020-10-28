@@ -6,8 +6,12 @@
 struct symtab
 {
     char *name;
+    double (*funcptr)();
     double value;
 } symtab[MAX_SYMBOLS];
 
 struct symtab *symlook(char *s);
+
+void addFunc(char *name, double (*func)());
+
 #endif // MACRO

@@ -53,7 +53,9 @@ extern int yydebug;
     NUMBER = 259,
     SEMICOLON = 260,
     NEW_LINE = 261,
-    UMINUS = 262
+    QSTRING = 262,
+    PRINT = 263,
+    UMINUS = 264
   };
 #endif
 /* Tokens.  */
@@ -61,18 +63,21 @@ extern int yydebug;
 #define NUMBER 259
 #define SEMICOLON 260
 #define NEW_LINE 261
-#define UMINUS 262
+#define QSTRING 262
+#define PRINT 263
+#define UMINUS 264
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 11 "parser.y"
+#line 12 "parser.y"
 
     double dval;
+    char* string;
     struct symtab* symp;
 
-#line 76 "y.tab.h"
+#line 81 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
