@@ -1,5 +1,13 @@
 foo = sqrt(2);
+
+
 print("Buenas\nbuenas\n");
+
 print("foo = ");
+
 print(foo);
+
+
+
+
 print("\n");

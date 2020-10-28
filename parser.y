@@ -38,6 +38,7 @@ statement_list: statement
 statement: NAME '=' expression  SEMICOLON { $1->value = $3; }
         |  expression   SEMICOLON { printf("= %g\n", $1); }
         | print_func SEMICOLON
+        | NEW_LINE
 
         ;
 expression: expression '+' expression { $$ = $1 + $3; }
