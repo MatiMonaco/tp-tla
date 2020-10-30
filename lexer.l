@@ -17,13 +17,19 @@ qstring \"[^\"\n]*[\"\n"]
 [A-Za-z][A-Za-z0-9]*    { /* return symbol pointer */
     if(!strcmp(yytext,"print")){
         return PRINT;
+    }else if(!strcmp(yytext,"if")){
+        return IF;
+    }else if(!strcmp(yytext,"else")){
+        return ELSE;
+    }else if(!strcmp(yytext,"while")){
+        return WHILE;
     }
     yylval.symp = symlook(yytext);
   
     return NAME;
 }
 {ws} ; /* ignore whitespace */
-; return SEMICOLON;
+
 "$" return 0; /* EOF when running in command line */
 {nl} return NEW_LINE;
 {qstring} {yylval.string = strdup(yytext+1);
@@ -35,6 +41,18 @@ qstring \"[^\"\n]*[\"\n"]
                 return QSTRING;
             }
 }
+
+"=="    |
+"!="    |
+"<"     |
+">"     |
+"<="    |
+">="    { return COMPARISON;}   
+
+"&&" {return AND;}
+"||"  {return OR;}
+
+[-+*/:(){},.;] {return yytext[0];}
 
 .   return yytext[0];
 %%

@@ -51,33 +51,48 @@ extern int yydebug;
   {
     NAME = 258,
     NUMBER = 259,
-    SEMICOLON = 260,
-    NEW_LINE = 261,
-    QSTRING = 262,
+    QSTRING = 260,
+    SEMICOLON = 261,
+    NEW_LINE = 262,
     PRINT = 263,
-    UMINUS = 264
+    IF = 264,
+    ELSE = 265,
+    WHILE = 266,
+    COMPARISON = 267,
+    OR = 268,
+    AND = 269,
+    UMINUS = 270,
+    LOWER_THAN_ELSE = 271
   };
 #endif
 /* Tokens.  */
 #define NAME 258
 #define NUMBER 259
-#define SEMICOLON 260
-#define NEW_LINE 261
-#define QSTRING 262
+#define QSTRING 260
+#define SEMICOLON 261
+#define NEW_LINE 262
 #define PRINT 263
-#define UMINUS 264
+#define IF 264
+#define ELSE 265
+#define WHILE 266
+#define COMPARISON 267
+#define OR 268
+#define AND 269
+#define UMINUS 270
+#define LOWER_THAN_ELSE 271
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 12 "parser.y"
+#line 13 "parser.y"
 
     double dval;
     char* string;
+    int boolean;
     struct symtab* symp;
 
-#line 81 "y.tab.h"
+#line 96 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

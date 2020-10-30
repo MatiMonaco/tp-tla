@@ -7,6 +7,7 @@ struct symtab
 {
     char *name;
     double (*funcptr)();
+    char *string;
     double value;
 } symtab[MAX_SYMBOLS];
 
