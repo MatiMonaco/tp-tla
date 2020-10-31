@@ -362,9 +362,9 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[38] =
     {   0,
-        0,    0,   18,   16,    3,    5,    5,   16,   16,    4,
-       16,   15,   15,    1,    9,   16,   10,    2,   16,    3,
-        5,    8,    0,    6,   13,    1,    0,    1,   11,    7,
+        0,    0,   18,   16,    4,    3,    3,   16,   16,    5,
+       16,   15,   15,    1,    9,   16,   10,    2,   16,    4,
+        3,    8,    0,    6,   13,    1,    0,    1,   11,    7,
        12,    2,   14,    0,    0,    1,    0
     } ;
 
@@ -374,7 +374,7 @@ static const YY_CHAR yy_ec[256] =
         1,    1,    4,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    5,    6,    1,    7,    1,    8,    1,    9,
-        9,    9,   10,    9,   10,   11,    9,   12,   12,   12,
+        9,    1,   10,    9,   10,   11,    1,   12,   12,   12,
        12,   12,   12,   12,   12,   12,   12,    9,    9,   13,
        14,   15,    1,    1,   16,   16,   16,   16,   17,   16,
        16,   16,   16,   16,   16,   16,   16,   16,   16,   16,
@@ -424,7 +424,7 @@ static const flex_int16_t yy_def[40] =
 
 static const flex_int16_t yy_nxt[67] =
     {   0,
-        4,    5,    6,    7,    8,    9,   10,   11,   12,   12,
+        4,    5,    6,    7,    8,    9,   10,   11,   12,    4,
        13,   14,   15,   16,   17,   18,   18,   19,   24,   27,
        28,   24,   24,   26,   32,   24,   27,   28,   34,   35,
        36,   36,   23,   23,   36,   26,   20,   33,   31,   30,
@@ -746,13 +746,15 @@ case 1:
 YY_RULE_SETUP
 #line 12 "lexer.l"
 {
-    yylval.dval = atof(yytext);
+    
+    yylval.string = strdup(yytext);
+  
     return NUMBER;
 }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "lexer.l"
+#line 19 "lexer.l"
 { /* return symbol pointer */
     if(!strcmp(yytext,"print")){
         return PRINT;
@@ -763,31 +765,31 @@ YY_RULE_SETUP
     }else if(!strcmp(yytext,"while")){
         return WHILE;
     }
-    yylval.symp = symlook(yytext);
-  
+    yylval.symp = symLook(yytext);
+     
     return NAME;
 }
 	YY_BREAK
 case 3:
+/* rule 3 can match eol */
 YY_RULE_SETUP
-#line 31 "lexer.l"
-; /* ignore whitespace */
+#line 34 "lexer.l"
+;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 33 "lexer.l"
-return 0; /* EOF when running in command line */
+#line 35 "lexer.l"
+; /* ignore whitespace */
 	YY_BREAK
 case 5:
-/* rule 5 can match eol */
 YY_RULE_SETUP
-#line 34 "lexer.l"
-return NEW_LINE;
+#line 36 "lexer.l"
+return 0; /* EOF when running in command line */
 	YY_BREAK
 case 6:
 /* rule 6 can match eol */
 YY_RULE_SETUP
-#line 35 "lexer.l"
+#line 39 "lexer.l"
 {yylval.string = strdup(yytext+1);
          
             if(yylval.string[yyleng-2] != '"'){
@@ -799,46 +801,50 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case 7:
-#line 46 "lexer.l"
-case 8:
-#line 47 "lexer.l"
-case 9:
-#line 48 "lexer.l"
-case 10:
-#line 49 "lexer.l"
-case 11:
 #line 50 "lexer.l"
+case 8:
+#line 51 "lexer.l"
+case 9:
+#line 52 "lexer.l"
+case 10:
+#line 53 "lexer.l"
+case 11:
+#line 54 "lexer.l"
 case 12:
 YY_RULE_SETUP
-#line 50 "lexer.l"
-{ return COMPARISON;}   
+#line 54 "lexer.l"
+{ 
+    yylval.string = strdup(yytext);
+  
+    return COMPARATION;
+}   
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 52 "lexer.l"
+#line 61 "lexer.l"
 {return AND;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 53 "lexer.l"
+#line 62 "lexer.l"
 {return OR;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 55 "lexer.l"
+#line 64 "lexer.l"
 {return yytext[0];}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 57 "lexer.l"
+#line 66 "lexer.l"
 return yytext[0];
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 58 "lexer.l"
+#line 67 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 842 "lex.yy.c"
+#line 848 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1843,7 +1849,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 58 "lexer.l"
+#line 67 "lexer.l"
 
 
 

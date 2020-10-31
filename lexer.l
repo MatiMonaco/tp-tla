@@ -10,7 +10,9 @@ nl (\n|\r\n|\r)
 qstring \"[^\"\n]*[\"\n"]
 %%
 ([0-9]+|([0-9]*\.[0-9]+)([eE][+-]?[0-9]+)?) {
-    yylval.dval = atof(yytext);
+    
+    yylval.string = strdup(yytext);
+  
     return NUMBER;
 }
 
@@ -24,14 +26,16 @@ qstring \"[^\"\n]*[\"\n"]
     }else if(!strcmp(yytext,"while")){
         return WHILE;
     }
-    yylval.symp = symlook(yytext);
-  
+    yylval.symp = symLook(yytext);
+     
     return NAME;
 }
-{ws} ; /* ignore whitespace */
 
+{nl} ;
+{ws} ; /* ignore whitespace */
 "$" return 0; /* EOF when running in command line */
-{nl} return NEW_LINE;
+
+
 {qstring} {yylval.string = strdup(yytext+1);
          
             if(yylval.string[yyleng-2] != '"'){
@@ -47,12 +51,17 @@ qstring \"[^\"\n]*[\"\n"]
 "<"     |
 ">"     |
 "<="    |
-">="    { return COMPARISON;}   
+">="    { 
+    yylval.string = strdup(yytext);
+  
+    return COMPARATION;
+}   
+
 
 "&&" {return AND;}
 "||"  {return OR;}
 
-[-+*/:(){},.;] {return yytext[0];}
+[:(){},.;] {return yytext[0];}
 
 .   return yytext[0];
 %%

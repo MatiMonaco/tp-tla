@@ -1,26 +1,8 @@
-2   + 2;
-
-
-foo = 3;
-
-
-print("foo = ");
-
-
-print(foo);
-
-
-print("\n");
-
-if(foo > 4){
-    if(foo >= 5){
-        print("es mayor a 5\n");
-    }else{
-        print("es menor a 5\n");
-        while( foo > 0){
-            foo = foo - 1;
-        }
-    }
-}else{
-    print("es menor a 4\n");
+y = 2;
+x = y + 4;
+if(y == 4){
+      x = 3;
+      if(x >= 3){
+         print("Hola");
+      }
 }

@@ -52,47 +52,57 @@ extern int yydebug;
     NAME = 258,
     NUMBER = 259,
     QSTRING = 260,
-    SEMICOLON = 261,
+    COMPARATION = 261,
     NEW_LINE = 262,
-    PRINT = 263,
-    IF = 264,
-    ELSE = 265,
-    WHILE = 266,
-    COMPARISON = 267,
+    TAB = 263,
+    PRINT = 264,
+    IF = 265,
+    ELSE = 266,
+    WHILE = 267,
     OR = 268,
     AND = 269,
-    UMINUS = 270,
-    LOWER_THAN_ELSE = 271
+    GT = 270,
+    LT = 271,
+    GE = 272,
+    LE = 273,
+    EQ = 274,
+    NEQ = 275,
+    UMINUS = 276,
+    LOWER_THAN_ELSE = 277
   };
 #endif
 /* Tokens.  */
 #define NAME 258
 #define NUMBER 259
 #define QSTRING 260
-#define SEMICOLON 261
+#define COMPARATION 261
 #define NEW_LINE 262
-#define PRINT 263
-#define IF 264
-#define ELSE 265
-#define WHILE 266
-#define COMPARISON 267
+#define TAB 263
+#define PRINT 264
+#define IF 265
+#define ELSE 266
+#define WHILE 267
 #define OR 268
 #define AND 269
-#define UMINUS 270
-#define LOWER_THAN_ELSE 271
+#define GT 270
+#define LT 271
+#define GE 272
+#define LE 273
+#define EQ 274
+#define NEQ 275
+#define UMINUS 276
+#define LOWER_THAN_ELSE 277
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 13 "parser.y"
+#line 17 "parser.y"
 
-    double dval;
     char* string;
-    int boolean;
     struct symtab* symp;
 
-#line 96 "y.tab.h"
+#line 106 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

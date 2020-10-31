@@ -2,7 +2,7 @@
 all: parser lexer link
 
 parser: parser.y
-	yacc -d  parser.y
+	yacc -d  -v parser.y
 
 lexer: lexer.l
 	lex lexer.l
