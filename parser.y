@@ -158,7 +158,7 @@ print_func:  PRINT '(' expression ')' {
         }
         |    PRINT '(' QSTRING ')' {
              char *s = malloc(15 + strlen($3));
-            sprintf(s,"console.log(%s)",$3);
+            sprintf(s,"console.log(\"%s\")",$3);
             $$ = s;
         }
         ;

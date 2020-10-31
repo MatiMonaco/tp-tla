@@ -1585,7 +1585,7 @@ yyreduce:
 #line 159 "parser.y"
                                    {
              char *s = malloc(15 + strlen((yyvsp[-1].string)));
-            sprintf(s,"console.log(%s)",(yyvsp[-1].string));
+            sprintf(s,"console.log(\"%s\")",(yyvsp[-1].string));
             (yyval.string) = s;
         }
 #line 1592 "y.tab.c"
